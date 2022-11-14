@@ -1,12 +1,14 @@
 import PropTypes from "prop-types";
 import Menu from "./Menu";
 
-const Book = ({book}) => {
+const Book = ({book, updateBooks, shelf}) => {
     let style = {
         width: 128,
         height: 193,
-        backgroundImage:
-            `url(${book.imageLinks.smallThumbnail})`,
+    }
+
+    if (book.imageLinks) {
+        style.backgroundImage = `url(${book.imageLinks.thumbnail})`
     }
 
     return (
@@ -16,7 +18,11 @@ const Book = ({book}) => {
                     className="book-cover"
                     style={style}
                 />
-                <Menu book={book}/>
+                <Menu
+                    book={book}
+                    updateBooks={updateBooks}
+                    shelf={shelf}
+                />
             </div>
             <div className="book-title">{book.title}</div>
             <div className="book-authors">{book.authors}</div>

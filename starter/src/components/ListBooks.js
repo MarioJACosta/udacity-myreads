@@ -1,21 +1,23 @@
 import BookShelf from "./BookShelf";
 import OpenSearchButton from "./OpenSearchButton";
 import PropTypes from "prop-types";
-import {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import * as BooksApi from "../utils/BooksAPI";
 
-const ListBooks = ({shelves, toggleShowSearchPage}) => {
+const ListBooks = ({shelves}) => {
     const [books, setBooks] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
+    const getBooks = useCallback(async () => {
+        const res = await BooksApi.getAll();
+        setBooks(res);
+        setIsLoading(false);
+    }, [setBooks, setIsLoading]);
+
+
     useEffect(() => {
-        const getBooks = async () => {
-            const res = await BooksApi.getAll();
-            setBooks(res);
-            setIsLoading(false)
-        };
         getBooks();
-    }, []);
+    }, [getBooks]);
 
     return (
         <div className="list-books">
@@ -23,11 +25,17 @@ const ListBooks = ({shelves, toggleShowSearchPage}) => {
                 <h1>MyReads</h1>
             </div>
             <div className="list-books-content">
-                <OpenSearchButton toggleShowSearchPage={toggleShowSearchPage}/>
+                <OpenSearchButton/>
                 <div>
                     {
                         shelves.map((shelf) => (
-                            <BookShelf shelf={shelf} books={books} isLoading={isLoading} key={shelf.id}/>
+                            <BookShelf
+                                key={shelf.id}
+                                shelf={shelf}
+                                books={books}
+                                isLoading={isLoading}
+                                updateBooks={getBooks}
+                            />
                         ))
                     }
                 </div>
@@ -38,7 +46,6 @@ const ListBooks = ({shelves, toggleShowSearchPage}) => {
 
 ListBooks.propTypes = {
     shelves: PropTypes.array.isRequired,
-    toggleShowSearchPage: PropTypes.func.isRequired,
 }
 
 export default ListBooks;

@@ -2,23 +2,31 @@ import Book from "./Book";
 import PropTypes from "prop-types";
 import Spinner from "./Spinner";
 
-const BookList = ({books, shelf, isLoading}) => {
-    return (
-        <ol className="books-grid">
-            {
-                isLoading ?
-                    <Spinner/>
-                    :
-                    books.map((book, index) => (
-                        book.shelf === (shelf && shelf.id) &&
-                        <li key={index}>
-                            <Book book={book}/>
-                        </li>
-                    ))}
+const BookList = ({books, shelf, isLoading, updateBooks}) => {
+        const getBooksInThisShelf = () => {
+            return books.filter((book) => (book.shelf === (shelf && shelf.id)))
+        }
 
-        </ol>
-    )
-};
+        console.log(isLoading)
+        return (
+            <ol className="books-grid">
+                {
+                    isLoading
+                        ? <Spinner/>
+                        : getBooksInThisShelf().map((book, index) => (
+                            <li key={index}>
+                                <Book
+                                    book={book}
+                                    updateBooks={updateBooks}
+                                    shelf={shelf}
+                                />
+                            </li>
+                        ))
+                }
+            </ol>
+        )
+    }
+;
 
 BookList.propTypes = {
     books: PropTypes.array.isRequired,

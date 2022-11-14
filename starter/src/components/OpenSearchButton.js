@@ -1,15 +1,11 @@
-import PropTypes from 'prop-types';
+import {Link} from "react-router-dom";
 
-const OpenSearchButton = ({toggleShowSearchPage}) => {
+const OpenSearchButton = () => {
     return (
         <div className="open-search">
-            <a onClick={() => toggleShowSearchPage()}>Add a book</a>
+            <Link to="/search">Add a book</Link>
         </div>
     )
 };
-
-OpenSearchButton.propTypes = {
-    toggleShowSearchPage: PropTypes.func.isRequired,
-}
 
 export default OpenSearchButton;
