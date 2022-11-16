@@ -25,11 +25,13 @@ const Book = ({shelf, book, updateBooks}) => {
                 />
             </div>
             <div className="book-title">{book.title}</div>
+            {book.length > 0 &&
             <div className="book-authors">
                 {book.authors.map((author, index) => (
                     <span key={index}>{(index ? ', ' : '') + author}</span>
                 ))}
             </div>
+            }
         </div>
     )
 };

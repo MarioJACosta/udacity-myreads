@@ -11,12 +11,15 @@ const BookList = ({shelf, books, updateBooks, isLoading}) => {
         return books;
     };
 
+    const b = getBooksInThisShelf()
+    console.log(b)
+
     return (
         <ol className="books-grid">
             {
                 isLoading
                     ? <Spinner/>
-                    : getBooksInThisShelf().map((book, index) => (
+                    : b.map((book, index) => (
                         <li key={index}>
                             <Book
                                 shelf={shelf}

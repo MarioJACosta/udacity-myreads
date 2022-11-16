@@ -49,8 +49,8 @@ const Menu = ({book, updateBooks}) => {
             <select value={book.shelf} onChange={(event) => {
                 handleChange(event)
             }}>
-                {options.map((option) => (
-                    <option value={option.id} disabled={option.disable}> {option.value}</option>
+                {options.map((option, index) => (
+                    <option key={index} value={option.id} disabled={option.disable}> {option.value}</option>
                 ))}
             </select>
         </div>

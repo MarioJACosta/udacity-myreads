@@ -31,7 +31,7 @@ const ListBooks = ({shelves, books, getBooks, isLoading}) => {
 ListBooks.propTypes = {
     shelves: PropTypes.array.isRequired,
     books: PropTypes.array.isRequired,
-    getBooks: PropTypes.array.isRequired,
+    getBooks: PropTypes.func.isRequired,
     isLoading: PropTypes.bool.isRequired
 }
 

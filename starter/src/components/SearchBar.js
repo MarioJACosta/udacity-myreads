@@ -1,5 +1,5 @@
 import * as BooksApi from "../utils/BooksAPI"
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import BookList from "./BookList";
 import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
@@ -13,19 +13,16 @@ const SearchBar = ({books, updateBooks}) => {
         setQuery(query.trim());
     };
 
-    useEffect(() => {
-        query !== "" ? searchBooks(query) : setSearchedBooks([]);
-    }, [query]);
-
-    const searchBooks = async (query) => {
+    const searchBooks = useCallback(async () => {
         setIsLoading(true);
+
         await BooksApi.search(query, 10)
             .then((response) => {
                 if (response.error) {
                     setSearchedBooks([]);
                 } else {
                     response.forEach((searchedBook) => {
-                        searchedBook.shelf = 'move';
+                        searchedBook.shelf = 'none';
                         books.forEach((book) => {
                             if (book.id === searchedBook.id) {
                                 searchedBook.shelf = book.shelf;
@@ -36,7 +33,13 @@ const SearchBar = ({books, updateBooks}) => {
                 }
             });
         setIsLoading(false);
-    };
+
+    }, [setIsLoading, query, setSearchedBooks,]);
+
+    useEffect(() => {
+        query !== "" ? searchBooks() : setSearchedBooks([]);
+    }, [query, searchBooks, setSearchedBooks]);
+
 
     return (
         <div className="search-books">
