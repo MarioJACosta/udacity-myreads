@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
 import Menu from "./Menu";
 
-const Book = ({book, updateBooks, shelf}) => {
-    let style = {
+const Book = ({shelf, book, updateBooks}) => {
+    const style = {
         width: 128,
         height: 193,
-    }
+    };
 
     if (book.imageLinks) {
         style.backgroundImage = `url(${book.imageLinks.thumbnail})`
@@ -19,9 +19,9 @@ const Book = ({book, updateBooks, shelf}) => {
                     style={style}
                 />
                 <Menu
+                    shelf={shelf}
                     book={book}
                     updateBooks={updateBooks}
-                    shelf={shelf}
                 />
             </div>
             <div className="book-title">{book.title}</div>
@@ -35,7 +35,9 @@ const Book = ({book, updateBooks, shelf}) => {
 };
 
 Book.propTypes = {
+    shelf: PropTypes.object,
     book: PropTypes.object.isRequired,
+    updateBooks: PropTypes.func.isRequired,
 }
 
 export default Book;

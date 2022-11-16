@@ -2,7 +2,7 @@ import BookShelf from "./BookShelf";
 import OpenSearchButton from "./OpenSearchButton";
 import PropTypes from "prop-types";
 
-const ListBooks = ({shelves, books, isLoading, getBooks}) => {
+const ListBooks = ({shelves, books, getBooks, isLoading}) => {
     return (
         <div className="list-books">
             <div className="list-books-title">
@@ -17,8 +17,8 @@ const ListBooks = ({shelves, books, isLoading, getBooks}) => {
                                 key={shelf.id}
                                 shelf={shelf}
                                 books={books}
-                                isLoading={isLoading}
                                 updateBooks={getBooks}
+                                isLoading={isLoading}
                             />
                         ))
                     }
@@ -30,6 +30,9 @@ const ListBooks = ({shelves, books, isLoading, getBooks}) => {
 
 ListBooks.propTypes = {
     shelves: PropTypes.array.isRequired,
+    books: PropTypes.array.isRequired,
+    getBooks: PropTypes.array.isRequired,
+    isLoading: PropTypes.bool.isRequired
 }
 
 export default ListBooks;

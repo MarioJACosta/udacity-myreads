@@ -41,8 +41,8 @@ function App() {
                 <ListBooks
                     shelves={shelves}
                     books={books}
-                    isLoading={isLoading}
                     getBooks={getBooks}
+                    isLoading={isLoading}
                 />
             }>
             </Route>

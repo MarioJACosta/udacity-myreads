@@ -2,39 +2,40 @@ import * as BooksApi from "../utils/BooksAPI"
 import {useEffect, useState} from "react";
 import BookList from "./BookList";
 import {Link} from "react-router-dom";
+import PropTypes from "prop-types";
 
 const SearchBar = ({books, updateBooks}) => {
-    const [query, setQuery] = useState("")
+    const [query, setQuery] = useState("");
     const [searchedBooks, setSearchedBooks] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
     const updateQuery = (query) => {
-        setQuery(query.trim())
-    }
+        setQuery(query.trim());
+    };
 
     useEffect(() => {
-        query !== "" ? searchBooks(query) : setSearchedBooks([])
-    }, [query])
+        query !== "" ? searchBooks(query) : setSearchedBooks([]);
+    }, [query]);
 
     const searchBooks = async (query) => {
-        setIsLoading(true)
+        setIsLoading(true);
         await BooksApi.search(query, 10)
             .then((response) => {
                 if (response.error) {
-                    setSearchedBooks([])
+                    setSearchedBooks([]);
                 } else {
                     response.forEach((searchedBook) => {
-                        searchedBook.shelf = 'none'
+                        searchedBook.shelf = 'move';
                         books.forEach((book) => {
                             if (book.id === searchedBook.id) {
-                                searchedBook.shelf = book.shelf
+                                searchedBook.shelf = book.shelf;
                             }
-                        })
+                        });
                     });
                     setSearchedBooks(response);
                 }
-            })
-        setIsLoading(false)
+            });
+        setIsLoading(false);
     };
 
     return (
@@ -69,5 +70,10 @@ const SearchBar = ({books, updateBooks}) => {
         </div>
     )
 };
+
+SearchBar.propTypes = {
+    books: PropTypes.array.isRequired,
+    updateBooks: PropTypes.func.isRequired
+}
 
 export default SearchBar;
