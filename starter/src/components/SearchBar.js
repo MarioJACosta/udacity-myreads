@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import BookList from "./BookList";
 import {Link} from "react-router-dom";
 
-const SearchBar = () => {
+const SearchBar = ({books, updateBooks}) => {
     const [query, setQuery] = useState("")
     const [searchedBooks, setSearchedBooks] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -18,8 +18,22 @@ const SearchBar = () => {
 
     const searchBooks = async (query) => {
         setIsLoading(true)
-        let response = await BooksApi.search(query, 10);
-        response.error ? setSearchedBooks([]) : setSearchedBooks(response);
+        await BooksApi.search(query, 10)
+            .then((response) => {
+                if (response.error) {
+                    setSearchedBooks([])
+                } else {
+                    response.forEach((searchedBook) => {
+                        searchedBook.shelf = 'none'
+                        books.forEach((book) => {
+                            if (book.id === searchedBook.id) {
+                                searchedBook.shelf = book.shelf
+                            }
+                        })
+                    });
+                    setSearchedBooks(response);
+                }
+            })
         setIsLoading(false)
     };
 
@@ -49,7 +63,7 @@ const SearchBar = () => {
                             <p>Please try again with a different query.</p>
                         </div>
                         :
-                        <BookList books={searchedBooks} isLoading={isLoading}/>
+                        <BookList books={searchedBooks} isLoading={isLoading} updateBooks={updateBooks}/>
                 }
             </div>
         </div>

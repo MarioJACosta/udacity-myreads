@@ -1,24 +1,8 @@
 import BookShelf from "./BookShelf";
 import OpenSearchButton from "./OpenSearchButton";
 import PropTypes from "prop-types";
-import React, {useCallback, useEffect, useState} from "react";
-import * as BooksApi from "../utils/BooksAPI";
 
-const ListBooks = ({shelves}) => {
-    const [books, setBooks] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
-
-    const getBooks = useCallback(async () => {
-        const res = await BooksApi.getAll();
-        setBooks(res);
-        setIsLoading(false);
-    }, [setBooks, setIsLoading]);
-
-
-    useEffect(() => {
-        getBooks();
-    }, [getBooks]);
-
+const ListBooks = ({shelves, books, isLoading, getBooks}) => {
     return (
         <div className="list-books">
             <div className="list-books-title">

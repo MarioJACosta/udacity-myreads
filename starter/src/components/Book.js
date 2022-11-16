@@ -25,7 +25,11 @@ const Book = ({book, updateBooks, shelf}) => {
                 />
             </div>
             <div className="book-title">{book.title}</div>
-            <div className="book-authors">{book.authors}</div>
+            <div className="book-authors">
+                {book.authors.map((author, index) => (
+                    <span key={index}>{(index ? ', ' : '') + author}</span>
+                ))}
+            </div>
         </div>
     )
 };

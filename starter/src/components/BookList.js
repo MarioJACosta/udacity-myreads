@@ -4,10 +4,13 @@ import Spinner from "./Spinner";
 
 const BookList = ({books, shelf, isLoading, updateBooks}) => {
         const getBooksInThisShelf = () => {
-            return books.filter((book) => (book.shelf === (shelf && shelf.id)))
+            if (shelf) {
+                return books.filter((book) => (book.shelf === (shelf && shelf.id)));
+            }
+
+            return books;
         }
 
-        console.log(isLoading)
         return (
             <ol className="books-grid">
                 {

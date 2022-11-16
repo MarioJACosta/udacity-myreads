@@ -1,23 +1,19 @@
 import PropTypes from "prop-types";
 import * as BooksApi from "../utils/BooksAPI";
-import {useLocation, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
-const Menu = ({book, updateBooks, shelf}) => {
-    let location = useLocation();
+const Menu = ({book, updateBooks}) => {
     let navigate = useNavigate();
 
-    const shelfID = shelf ? shelf.id : 'none'
+    const shelfID = book.shelf
 
     const handleChange = (event) => {
         let shelf = event.target.value;
 
         if (shelf !== "" || shelf !== 'none') {
             BooksApi.update(book, shelf).then(() => {
-                if (location.pathname === '/search') {
-                    navigate('/');
-                    return;
-                }
                 updateBooks();
+                navigate('/');
             })
         }
     };
