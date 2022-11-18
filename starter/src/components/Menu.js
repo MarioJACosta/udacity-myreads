@@ -36,7 +36,7 @@ const Menu = ({book, updateBooks}) => {
     const handleChange = (event) => {
         const shelf = event.target.value;
 
-        if (shelf !== "" || shelf !== 'none') {
+        if (shelf !== "") {
             BooksApi.update(book, shelf).then(() => {
                 updateBooks();
                 navigate('/');

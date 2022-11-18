@@ -16,24 +16,25 @@ const SearchBar = ({books, updateBooks}) => {
     const searchBooks = useCallback(async () => {
         setIsLoading(true);
 
-        await BooksApi.search(query, 10)
-            .then((response) => {
-                if (response.error) {
-                    setSearchedBooks([]);
-                } else {
-                    response.forEach((searchedBook) => {
-                        searchedBook.shelf = 'none';
-                        books.forEach((book) => {
-                            if (book.id === searchedBook.id) {
-                                searchedBook.shelf = book.shelf;
-                            }
+        if (query !== "") {
+            await BooksApi.search(query, 10)
+                .then((response) => {
+                    if (response.error) {
+                        setSearchedBooks([]);
+                    } else {
+                        response.forEach((searchedBook) => {
+                            searchedBook.shelf = 'none';
+                            books.forEach((book) => {
+                                if (book.id === searchedBook.id) {
+                                    searchedBook.shelf = book.shelf;
+                                }
+                            });
                         });
-                    });
-                    setSearchedBooks(response);
-                }
-            });
-        setIsLoading(false);
-
+                        setSearchedBooks(response);
+                    }
+                });
+            setIsLoading(false);
+        }
     }, [setIsLoading, query, setSearchedBooks, books]);
 
     useEffect(() => {

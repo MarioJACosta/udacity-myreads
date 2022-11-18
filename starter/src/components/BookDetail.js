@@ -25,7 +25,11 @@ const BookDetail = ({book, handleClose, open}) => {
             <DialogTitle>
                 <Grid container spacing={2}>
                     <Grid item xs={4}>
-                        <Img alt={book.title} src={book.imageLinks.thumbnail}/>
+                        {
+                            book.imageLinks &&
+                            <Img alt={book.title} src={book.imageLinks.thumbnail}/>
+
+                        }
                     </Grid>
                     <Grid item xs={7}>
                         <Typography variant="h4" component="div">
