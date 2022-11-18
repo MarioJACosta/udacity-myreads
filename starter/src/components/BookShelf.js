@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import BookList from "./BookList";
+import BookListContent from "./BookListContent";
 
 const BookShelf = ({shelf, books, updateBooks, isLoading}) => {
     return (
@@ -7,7 +7,7 @@ const BookShelf = ({shelf, books, updateBooks, isLoading}) => {
             <h2 className="bookshelf-title">{shelf.name}</h2>
 
             <div className="bookshelf-books">
-                <BookList
+                <BookListContent
                     shelf={shelf}
                     books={books}
                     updateBooks={updateBooks}
@@ -22,7 +22,7 @@ BookShelf.propTypes = {
     shelf: PropTypes.object.isRequired,
     books: PropTypes.array,
     updateBooks: PropTypes.func.isRequired,
-    isLoading: PropTypes.bool.isRequired,
+    isLoading: PropTypes.bool.isRequired
 }
 
 export default BookShelf;

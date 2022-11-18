@@ -1,42 +1,31 @@
-import Book from "./Book";
+import ListBooks from "./ListBooks";
+import EmptyBooks from "./EmptyBooks";
 import PropTypes from "prop-types";
-import Spinner from "./Spinner";
 
-const BookList = ({shelf, books, updateBooks, isLoading}) => {
-    const getBooksInThisShelf = () => {
-        if (shelf) {
-            return books.filter((book) => (book.shelf === (shelf && shelf.id)));
-        }
-
-        return books;
-    };
-
-    const b = getBooksInThisShelf()
-
+const BookList = ({shelves, books, getBooks, isLoading}) => {
     return (
-        <ol className="books-grid">
-            {
-                isLoading
-                    ? <Spinner/>
-                    : b.map((book, index) => (
-                        <li key={index}>
-                            <Book
-                                shelf={shelf}
-                                book={book}
-                                updateBooks={updateBooks}
-                            />
-                        </li>
-                    ))
+        <div className="list-books">
+            <div className="list-books-title">
+                <h1>MyReads</h1>
+            </div>
+            {books.length > 0
+                ? <ListBooks
+                    shelves={shelves}
+                    books={books}
+                    getBooks={getBooks}
+                    isLoading={isLoading}
+                />
+                : <EmptyBooks/>
             }
-        </ol>
+        </div>
     )
 };
 
 BookList.propTypes = {
-    shelf: PropTypes.object,
-    books: PropTypes.array.isRequired,
-    updateBooks: PropTypes.func.isRequired,
-    isLoading: PropTypes.bool.isRequired,
+    shelves: PropTypes.array.isRequired,
+    books: PropTypes.array,
+    getBooks: PropTypes.func.isRequired,
+    isLoading: PropTypes.bool.isRequired
 }
 
 export default BookList;

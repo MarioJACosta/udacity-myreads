@@ -1,9 +1,9 @@
 import "../css/App.css";
 import SearchBar from "./SearchBar";
-import ListBooks from "./ListBooks";
 import {Routes, Route} from "react-router-dom";
 import {useCallback, useEffect, useState} from "react";
 import * as BooksApi from "../utils/BooksAPI";
+import BookList from "./BookList";
 
 const shelves = [
     {
@@ -36,16 +36,16 @@ function App() {
     }, [getBooks]);
 
     return (
+        !isLoading &&
         <Routes>
             <Route exact path="/" element={
-                <ListBooks
+                <BookList
                     shelves={shelves}
                     books={books}
                     getBooks={getBooks}
                     isLoading={isLoading}
                 />
-            }>
-            </Route>
+            }/>
             <Route exact path="/search" element={<SearchBar books={books} updateBooks={getBooks}/>}> </Route>
         </Routes>
     )

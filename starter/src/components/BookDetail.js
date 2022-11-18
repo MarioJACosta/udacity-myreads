@@ -2,7 +2,6 @@ import {styled} from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
@@ -18,19 +17,17 @@ const Img = styled('img')({
 
 const BookDetail = ({book, handleClose, open}) => {
     return (
-        <Dialog
-            open={open}
-            onClose={handleClose}
-        >
+        <Dialog open={open} onClose={handleClose}>
             <DialogTitle>
                 <Grid container spacing={2}>
+
                     <Grid item xs={4}>
                         {
                             book.imageLinks &&
                             <Img alt={book.title} src={book.imageLinks.thumbnail}/>
-
                         }
                     </Grid>
+
                     <Grid item xs={7}>
                         <Typography variant="h4" component="div">
                             {book.title}
@@ -46,8 +43,15 @@ const BookDetail = ({book, handleClose, open}) => {
                         <Typography variant="body2" color="text.secondary">
                             Publisher: {book.publisher}
                         </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                            Publish Date: {book.publishedDate}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                            ISBN: {book.industryIdentifiers[0].identifier}
+                        </Typography>
                     </Grid>
                 </Grid>
+
                 <IconButton
                     aria-label="close"
                     onClick={handleClose}
@@ -62,9 +66,9 @@ const BookDetail = ({book, handleClose, open}) => {
                 </IconButton>
             </DialogTitle>
             <DialogContent dividers={true}>
-                <DialogContentText>
+                <Typography align={"justify"}>
                     {book.description}
-                </DialogContentText>
+                </Typography>
             </DialogContent>
         </Dialog>
     )

@@ -1,8 +1,9 @@
 import * as BooksApi from "../utils/BooksAPI"
 import {useCallback, useEffect, useState} from "react";
-import BookList from "./BookList";
+import BookListContent from "./BookListContent";
 import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
+import EmptySearch from "./EmptySearch";
 
 const SearchBar = ({books, updateBooks}) => {
     const [query, setQuery] = useState("");
@@ -62,13 +63,8 @@ const SearchBar = ({books, updateBooks}) => {
             <div className="search-books-results">
                 {
                     searchedBooks.length === 0 && query !== "" && !isLoading
-                        ?
-                        <div className='no-books'>
-                            <p>Couldn't find any books for <i>{query}.</i></p>
-                            <p>Please try again with a different query.</p>
-                        </div>
-                        :
-                        <BookList books={searchedBooks} isLoading={isLoading} updateBooks={updateBooks}/>
+                        ? <EmptySearch query={query}/>
+                        : <BookListContent books={searchedBooks} isLoading={isLoading} updateBooks={updateBooks}/>
                 }
             </div>
         </div>
