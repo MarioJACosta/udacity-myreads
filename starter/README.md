@@ -27,3 +27,9 @@ npm install
 ```
 npm start
 ```
+
+## Project Features
+1. Search your preferred books and add them to your shelves. 
+2. Click on the book cover to see more detail about it.
+3. Move your book from shelf to shelf.
+4. Remove your book if you don't want it in your shelves anymore. 
