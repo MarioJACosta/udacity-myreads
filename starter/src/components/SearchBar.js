@@ -34,7 +34,7 @@ const SearchBar = ({books, updateBooks}) => {
             });
         setIsLoading(false);
 
-    }, [setIsLoading, query, setSearchedBooks,]);
+    }, [setIsLoading, query, setSearchedBooks, books]);
 
     useEffect(() => {
         query !== "" ? searchBooks() : setSearchedBooks([]);

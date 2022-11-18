@@ -1,7 +1,13 @@
 import PropTypes from "prop-types";
 import Menu from "./Menu";
+import BookDetail from "./BookDetail";
+import {useState} from "react";
 
 const Book = ({shelf, book, updateBooks}) => {
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
     const style = {
         width: 128,
         height: 193,
@@ -17,7 +23,9 @@ const Book = ({shelf, book, updateBooks}) => {
                 <div
                     className="book-cover"
                     style={style}
+                    onClick={handleOpen}
                 />
+                <BookDetail book={book} handleClose={handleClose} open={open}/>
                 <Menu
                     shelf={shelf}
                     book={book}

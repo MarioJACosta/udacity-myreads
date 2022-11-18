@@ -12,7 +12,6 @@ const BookList = ({shelf, books, updateBooks, isLoading}) => {
     };
 
     const b = getBooksInThisShelf()
-    console.log(b)
 
     return (
         <ol className="books-grid">
